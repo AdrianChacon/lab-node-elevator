@@ -5,11 +5,12 @@ class Elevator {
     this.requests = [];
     this.direction = 'up';
     this.passenger = [];
-    this.waitingList = []
+    this.waitingList = [];
+    this.intervalID = 0
   }
   start() {
     let i = 0;
-    let intervalID = setInterval(() => {
+    this.intervalID =  setInterval(() => {
       if (this.floor < this.MAXFLOOR && this.direction == 'up') {
         this._passengersEnter();
         this._passengersLeave();
@@ -21,12 +22,11 @@ class Elevator {
         this.floorDown();
         this.update();
       }
-      
     }, 1000);
   }
 
   stop() {
-    intervalID = clearInterval()
+    this.intervalID = clearInterval()
   }
 
   update() {
