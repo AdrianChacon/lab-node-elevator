@@ -30,12 +30,19 @@ class Elevator {
   }
 
   update() {
-    this.log();
+    
+    if (this.requests.length > 0){
+      console.log (this.requests)
+      this.log();
+    } else {
+      this.stop();
+    }
   }
   _passengersEnter() {
     for (let i = 0; i < this.waitingList.length; i++) {
       if (this.waitingList[i].originFloor == this.floor) {
         this.passenger.push(this.waitingList[i])
+        this.requests.splice(this.requests.indexOf(this.floor), 1);
         this.requests.push(this.waitingList[i].destinationFloor)
         console.log(`${this.waitingList[i].name} has enter the elevator`)
         this.waitingList.splice(i, 1);
@@ -47,6 +54,8 @@ class Elevator {
       if (this.passenger[i].destinationFloor == this.floor) {
         console.log(`${this.passenger[i].name} has left the elevator`)
         this.passenger.splice(i, 1);
+        console.log(this.requests.indexOf(this.floor))
+        this.requests.splice(this.requests.indexOf(this.floor), 1);
       }
     }
   }
